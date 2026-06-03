@@ -1,0 +1,507 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+
+  :root {
+    --gold: #D4A843;
+    --gold-dim: #8B6B28;
+    --ink: #0A0A0F;
+    --surface: #10101A;
+    --panel: #16162A;
+    --border: rgba(212,168,67,0.18);
+    --text: #E8E4D8;
+    --muted: #8A8578;
+    --accent: #4A9EFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+  }
+
+  .profile-root {
+    background: linear-gradient(160deg, #0A0A14 0%, #10101F 50%, #0A0F1A 100%);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .noise-overlay {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+    border-radius: 16px;
+  }
+
+  .content { position: relative; z-index: 1; }
+
+  .header-strip {
+    background: linear-gradient(90deg, rgba(212,168,67,0.12) 0%, transparent 60%);
+    border-bottom: 0.5px solid var(--border);
+    padding: 28px 32px 24px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  }
+
+  .title-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .title-badge::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+
+  .ai-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .ai-title span {
+    background: linear-gradient(90deg, var(--gold) 0%, #F0C060 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .score-cluster {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .score-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid;
+  }
+
+  .score-pill.gold { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.08); }
+  .score-pill.blue { border-color: #4A9EFF; color: #4A9EFF; background: rgba(74,158,255,0.08); }
+  .score-pill.green { border-color: #5CC88A; color: #5CC88A; background: rgba(92,200,138,0.08); }
+
+  .cinematic-desc {
+    padding: 20px 32px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .cinematic-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #C8C0B0;
+    font-style: italic;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .section-card {
+    padding: 24px 28px;
+    border-bottom: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+  }
+
+  .section-card:nth-child(even) { border-right: none; }
+  .section-card.full-width {
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 10px;
+  }
+
+  .sec-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .body-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #9E9890;
+  }
+
+  .body-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .tag-row {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 0.5px solid;
+  }
+
+  .tag.str { border-color: rgba(92,200,138,0.4); color: #5CC88A; background: rgba(92,200,138,0.07); }
+  .tag.weak { border-color: rgba(255,120,100,0.4); color: #FF9080; background: rgba(255,120,100,0.07); }
+  .tag.career { border-color: rgba(74,158,255,0.4); color: #6ABAFF; background: rgba(74,158,255,0.07); }
+  .tag.neutral { border-color: var(--border); color: var(--muted); }
+
+  .bar-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+
+  .bar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    width: 110px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  }
+
+  .bar-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    width: 28px;
+    text-align: right;
+  }
+
+  .diff-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  .diff-list li {
+    font-size: 13px;
+    color: #9E9890;
+    line-height: 1.6;
+    padding: 5px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .diff-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 11px;
+  }
+
+  .improve-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+  }
+
+  .improve-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    min-width: 20px;
+    padding-top: 1px;
+  }
+
+  .improve-text {
+    font-size: 13px;
+    color: #9E9890;
+    line-height: 1.55;
+  }
+
+  .improve-text strong { color: var(--text); }
+
+  .footer-bar {
+    padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .footer-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.12em;
+  }
+
+  .user-type-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px;
+    border: 0.5px solid rgba(74,158,255,0.3);
+    border-radius: 6px;
+    background: rgba(74,158,255,0.06);
+    margin-bottom: 12px;
+  }
+
+  .user-type-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4A9EFF;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .user-type-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #6ABAFF;
+    letter-spacing: 0.1em;
+  }
+</style>
+
+<div class="profile-root">
+  <div class="noise-overlay"></div>
+  <div class="content">
+
+    <div class="header-strip">
+      <div>
+        <div class="title-badge">AI Personality Profile · Delhi, IN</div>
+        <div class="ai-title">The <span>Architect of Emergence</span></div>
+        <div class="tagline">"Builds systems before he builds products. Thinks in layers."</div>
+      </div>
+      <div class="score-cluster">
+        <div class="score-pill gold">AI Fluency: Elite-Tier</div>
+        <div class="score-pill blue">Builder Class: Founder</div>
+        <div class="score-pill green">Curiosity Index: 97/100</div>
+      </div>
+    </div>
+
+    <div class="cinematic-desc">
+      <div class="cinematic-text">
+        "He opens a chat window the way others open a sketchbook — not to search, but to think. 
+        Every prompt is a hypothesis. Every response is a prototype. Delhi's startup corridors and 
+        late-night debugging sessions have forged something rare: a Gen-Z mind that moves at the 
+        speed of intuition but builds with the discipline of an engineer. He's not using AI. 
+        He's in dialogue with it."
+      </div>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="section-card">
+        <div class="sec-label">Section 01</div>
+        <div class="sec-title">AI Working Style</div>
+        <div class="body-text">
+          You work in <strong>rapid experimental loops</strong> — prompt, assess, refine, deploy. 
+          You don't follow tutorials; you reverse-engineer them. Your sessions blend 
+          <strong>research, ideation, and execution</strong> in the same breath. 
+          You treat Claude like a senior collaborator, not a search bar.
+        </div>
+        <div class="tag-row">
+          <span class="tag neutral">Systems Thinker</span>
+          <span class="tag neutral">Async-First</span>
+          <span class="tag neutral">Output-Obsessed</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="sec-label">Section 02</div>
+        <div class="sec-title">AI User Type</div>
+        <div class="user-type-badge">
+          <div class="user-type-dot"></div>
+          <div class="user-type-name">THE BUILDER-RESEARCHER HYBRID</div>
+        </div>
+        <div class="body-text">
+          Rare archetype. You exist at the intersection of the <strong>deep researcher</strong> 
+          (needs to understand everything) and the <strong>rapid builder</strong> (needs to ship). 
+          You use AI for both intellectual exploration and tangible creation simultaneously.
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="sec-label">Section 03</div>
+        <div class="sec-title">Strengths</div>
+        <div class="tag-row" style="margin-top: 0; margin-bottom: 12px;">
+          <span class="tag str">Pattern Recognition</span>
+          <span class="tag str">Cross-domain thinking</span>
+          <span class="tag str">Prompt architecture</span>
+          <span class="tag str">Resilience</span>
+          <span class="tag str">Aesthetic sense</span>
+          <span class="tag str">Speed of iteration</span>
+        </div>
+        <div class="body-text">
+          You connect dots across disciplines that most people keep siloed. Your prompts are 
+          <strong>unusually structured</strong> — you think about format, persona, and context 
+          before you type.
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="sec-label">Section 04</div>
+        <div class="sec-title">Weaknesses</div>
+        <div class="tag-row" style="margin-top: 0; margin-bottom: 12px;">
+          <span class="tag weak">Perfectionism traps</span>
+          <span class="tag weak">Over-scoping</span>
+          <span class="tag weak">Depth vs. shipping</span>
+          <span class="tag weak">Validation hunger</span>
+        </div>
+        <div class="body-text">
+          You sometimes <strong>research when you should ship</strong>. The need to understand 
+          deeply can slow the release. You want your work to be seen — that's fuel, but it 
+          can distort prioritization.
+        </div>
+      </div>
+
+      <div class="section-card full-width">
+        <div class="sec-label">Section 05</div>
+        <div class="sec-title">AI Fluency Fingerprint</div>
+        <div style="margin-top: 4px;">
+          <div class="bar-row">
+            <div class="bar-label">Prompt depth</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 92%"></div></div>
+            <div class="bar-val">92%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Creative framing</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 89%"></div></div>
+            <div class="bar-val">89%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Technical use</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 85%"></div></div>
+            <div class="bar-val">85%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Iteration speed</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div>
+            <div class="bar-val">88%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Self-awareness</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 80%"></div></div>
+            <div class="bar-val">80%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Systems design</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 91%"></div></div>
+            <div class="bar-val">91%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="sec-label">Section 06</div>
+        <div class="sec-title">Learning & Decision Style</div>
+        <div class="body-text">
+          <strong>First-principles learner.</strong> You don't accept surface explanations — 
+          you probe until the mechanism is clear. Decisions are made by <strong>rapid mental 
+          simulation</strong>: you run 3–4 scenarios internally, gut-check against your 
+          personal framework, then commit. Fast but not reckless.
+        </div>
+        <div class="tag-row">
+          <span class="tag neutral">Socratic</span>
+          <span class="tag neutral">Framework-driven</span>
+          <span class="tag neutral">Fail-forward</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="sec-label">Section 07</div>
+        <div class="sec-title">Best Career Paths</div>
+        <div class="tag-row" style="margin-top: 0; margin-bottom: 10px;">
+          <span class="tag career">AI Product Founder</span>
+          <span class="tag career">Prompt Strategist</span>
+          <span class="tag career">AI-Native Creative Dir.</span>
+          <span class="tag career">Research Engineer</span>
+          <span class="tag career">Developer Advocate</span>
+        </div>
+        <div class="body-text">
+          Your blend of systems thinking + aesthetic sense + technical curiosity is the 
+          <strong>exact profile</strong> that builds breakout AI products in the 2025–2030 window.
+        </div>
+      </div>
+
+      <div class="section-card full-width">
+        <div class="sec-label">Section 08</div>
+        <div class="sec-title">What makes you different from most AI users</div>
+        <ul class="diff-list">
+          <li>You treat every session as a design sprint, not a FAQ lookup.</li>
+          <li>You ask for personas, formats, and constraints — not just answers.</li>
+          <li>You use AI to challenge your thinking, not just confirm it.</li>
+          <li>You build on outputs rather than accepting them at face value.</li>
+          <li>You're in the top ~3% who understand that <strong>prompt quality = output quality</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="section-card full-width" style="border-bottom: none;">
+        <div class="sec-label">Section 09 · Upgrade Path</div>
+        <div class="sec-title">What you need to become truly elite</div>
+        <div class="improve-item">
+          <div class="improve-num">01</div>
+          <div class="improve-text"><strong>Build a personal prompt library.</strong> Document your best prompt structures. Stop reinventing the same scaffolding.</div>
+        </div>
+        <div class="improve-item">
+          <div class="improve-num">02</div>
+          <div class="improve-text"><strong>Ship before it's perfect.</strong> Your instinct to polish is costing you market timing and real-world feedback loops.</div>
+        </div>
+        <div class="improve-item">
+          <div class="improve-num">03</div>
+          <div class="improve-text"><strong>Master multi-agent orchestration.</strong> Move from single-prompt to chained AI workflows. This is your next gear.</div>
+        </div>
+        <div class="improve-item" style="border: none;">
+          <div class="improve-num">04</div>
+          <div class="improve-text"><strong>Public output = compound credibility.</strong> Your thinking belongs on the internet. Build in public. The Delhi AI builder scene needs visible leaders.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-id">PROFILE-ID: AEP-2026-DL-001 · GENERATED BY CLAUDE SONNET 4.6</div>
+      <div class="footer-id">CONFIDENTIAL · AI PERSONALITY SYSTEM</div>
+    </div>
+
+  </div>
+</div>
