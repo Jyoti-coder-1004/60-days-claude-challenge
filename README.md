@@ -15,15 +15,19 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 
 ## 📅 Daily Progress Tracker
 
-| Day | Task Title | Status | Link / Commit |
-|-----|------------|--------|---------------|
-| Day 1 | Claude Setup & AI Personality Profile | ✅ Completed | [First Commit](https://github.com/your-username/repo-name/commit/your-commit-hash) |
-| Day 2 | Coming Soon... | ⏳ Pending | - |
+| Day | Task Title | Status | Workspace / Preview | Link / Commit |
+|-----|------------|--------|---------------------|---------------|
+| Day 1 | Claude Setup & AI Personality Profile | ✅ Completed | ![Day 1 Setup](./day1-setup.png) | [Day 1 Notes](./day1.md) |
+| Day 2 | What Is Prompt Engineering? | ✅ Completed | ![Day 2 Prompt](./day2-prompt.png) | [Day 2 Notes](./day2.md) |
+| Day 3 | Coming Soon... | ⏳ Pending | - | - |
 
 ---
 
 ## 🛠️ Tech & Tools Used
 * **Primary AI Core:** Claude Desktop App 
+* **Frameworks & Framework Utilities:** MetaPrompt
 * **Environments:** GitHub, HTML/CSS/JS, [any other tools you use]
+
+---
 
 *“One commit a day keeps the friction away.”* Follow along to see the evolution!
