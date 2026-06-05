@@ -2,7 +2,7 @@
 
 Welcome to my official repository for the **ABTalks 60 Days AI Challenge**! Over the next 60 days, I will be building, prompting, and documenting my journey toward becoming an elite AI builder. 
 
-Here, I'll be tracking my daily progress,  storing code snippets, HTML files, screenshots, and Claude project assets.
+Here, I'll be tracking my daily progress, storing code snippets, HTML files, screenshots, and Claude project assets.
 
 ---
 
@@ -19,14 +19,16 @@ Here, I'll be tracking my daily progress,  storing code snippets, HTML files, sc
 |-----|------------|--------|---------------------|---------------|
 | Day 1 | Claude Setup & AI Personality Profile | ✅ Completed | ![Day 1 Setup](./day1-setup.png) | [Day 1 Notes](./day1.md) |
 | Day 2 | What Is Prompt Engineering? | ✅ Completed | ![Day 2 Prompt](./day2-prompt.png) | [Day 2 Notes](./day2.md) |
-| Day 3 | Coming Soon... | ⏳ Pending | - | - |
+| Day 3 | Role-Based Prompting | ✅ Completed | ![Day 3 Persona](./day3-persona.png) | [Day 3 Notes](./Day3/day3.md) |
+| Day 4 | Coming Soon... | ⏳ Pending | - | - |
 
 ---
 
 ## 🛠️ Tech & Tools Used
 * **Primary AI Core:** Claude Desktop App 
 * **Frameworks & Framework Utilities:** MetaPrompt
-* **Environments:** GitHub, HTML/CSS/JS, [any other tools you use]
+* **Extensions:** Claude Usage Counter (Chrome Extension)
+* **Environments:** GitHub, HTML/CSS/JS, Markdown
 
 ---
 
