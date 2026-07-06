@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Operation Lifeline: Supply Chain Crisis Lab</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      :root {
+        --bg: #060b14;
+        --bg-elev: #101827;
+        --panel: rgba(16, 24, 39, 0.92);
+        --panel-strong: rgba(20, 31, 48, 0.98);
+        --border: rgba(151, 184, 255, 0.18);
+        --text: #eef4ff;
+        --muted: #93a2ba;
+        --accent: #48d1ff;
+        --accent-2: #7f7cff;
+        --good: #34d399;
+        --warn: #fbbf24;
+        --danger: #fb7185;
+        --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(72, 209, 255, 0.16), transparent 28%),
+          linear-gradient(135deg, var(--bg), #0f1728 60%, #050814 100%);
+        min-height: 100vh;
+      }
+      button { font: inherit; }
+      .app {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .hero, .card, .step-card, .metric-card, .choice-card, .summary-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+      .hero {
+        padding: 28px;
+        margin-bottom: 24px;
+        display: grid;
+        gap: 16px;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        font-size: 0.75rem;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      h1, h2, h3, p { margin: 0; }
+      h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+      .subtitle { color: var(--muted); font-size: 1.05rem; line-height: 1.65; }
+      .btn {
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 700;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn-primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #06131f;
+        box-shadow: 0 12px 30px rgba(72, 209, 255, 0.2);
+      }
+      .btn-secondary {
+        background: rgba(255,255,255,0.07);
+        color: var(--text);
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+      .btn-choice {
+        width: 100%;
+        text-align: left;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        border: 1px solid transparent;
+      }
+      .btn-choice:hover { border-color: var(--accent); background: rgba(72,209,255,0.08); }
+      .btn-choice.active {
+        border-color: var(--accent);
+        background: rgba(72,209,255,0.14);
+      }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .card, .step-card, .summary-card {
+        padding: 18px;
+      }
+      .card h3, .step-card h3, .summary-card h3 { margin-bottom: 10px; font-size: 1.05rem; }
+      .card p, .step-card p, .summary-card p { color: var(--muted); line-height: 1.55; }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text);
+        background: rgba(255,255,255,0.08);
+        margin-bottom: 10px;
+      }
+      .pill strong { color: var(--accent); }
+      .metric-card {
+        padding: 16px;
+      }
+      .metric-head { display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--muted); }
+      .bar-track {
+        height: 10px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.08);
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: inherit;
+        transition: width 0.8s ease;
+      }
+      .stack { display: grid; gap: 14px; }
+      .choice-card { margin-bottom: 14px; }
+      .choice-meta { color: var(--muted); font-size: 0.93rem; margin-top: 8px; }
+      .subtle { color: var(--muted); font-size: 0.95rem; }
+      .actions-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+      .highlight { color: var(--accent); font-weight: 700; }
+      .status { display: inline-block; margin-top: 8px; font-size: 0.92rem; color: var(--good); }
+      .warning { color: var(--warn); }
+      .danger { color: var(--danger); }
+      .final-score {
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        font-weight: 800;
+        color: var(--accent);
+      }
+      ul { padding-left: 18px; margin: 8px 0 0; color: var(--muted); }
+      .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+      .tag {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(72,209,255,0.12);
+        color: var(--accent);
+        font-size: 0.82rem;
+      }
+      @media (max-width: 700px) {
+        .app { padding: 14px; }
+        .hero, .card, .step-card, .summary-card { border-radius: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState } = React;
+
+      const clamp = (value, min = 0, max = 100) => Math.min(max, Math.max(min, value));
+
+      const industries = [
+        "consumer wellness",
+        "industrial robotics",
+        "medical devices",
+        "electric mobility",
+        "food logistics",
+        "agri-tech",
+        "home automation"
+      ];
+      const adjectives = ["Northstar", "Velocity", "Summit", "Apex", "Lumen", "Harbor", "Crestline"];
+      const nouns = ["Supply", "Orbit", "Forge", "Flow", "Signal", "Bridge", "Vector"];
+      const crisisTypes = [
+        {
+          type: "factory fire",
+          headline: "A major plant is offline after a fire.",
+          description: "Operations are paused and replacement capacity is limited.",
+          why: "Every hour of downtime eats your output and pushes customers toward competitors."
+        },
+        {
+          type: "supplier bankruptcy",
+          headline: "A key supplier has filed for bankruptcy.",
+          description: "Critical materials are no longer flowing through your usual route.",
+          why: "This creates a single-point failure that can ripple through your service promise."
+        },
+        {
+          type: "port strike",
+          headline: "A port strike has halted ocean freight.",
+          description: "Containers are stuck and inland transport is getting expensive.",
+          why: "Transit delays can turn a manageable problem into a customer trust crisis."
+        },
+        {
+          type: "cyberattack",
+          headline: "A ransomware attack has disrupted planning systems.",
+          description: "Orders and inventory visibility are partially unavailable.",
+          why: "Poor visibility makes every decision riskier and slower."
+        },
+        {
+          type: "flood",
+          headline: "A flood has damaged a regional warehouse.",
+          description: "Stock is stranded and replenishment routes are blocked.",
+          why: "Damage at the warehouse layer is expensive and emotionally costly for the team."
+        },
+        {
+          type: "raw material shortage",
+          headline: "A critical raw material is suddenly scarce.",
+          description: "Prices are jumping and sourcing teams need backup plans fast.",
+          why: "Shortages can force you to choose between margin and availability."
+        },
+        {
+          type: "political conflict",
+          headline: "Political conflict has disrupted a core trade corridor.",
+          description: "Cross-border freight is delayed and customs is unpredictable.",
+          why: "Geopolitical shocks often affect more than one lane at once."
+        },
+        {
+          type: "shipping delay",
+          headline: "A major shipping line is running behind schedule.",
+          description: "Inventory will arrive late and your customer promise is now under pressure.",
+          why: "Late arrivals create a visible gap between expectation and delivery."
+        }
+      ];
+
+      const warActions = [
+        {
+          id: "expedite",
+          title: "Expedite air shipments for key orders",
+          description: "Move a small number of high-value orders by air to protect service levels.",
+          why: "This buys time, but it costs money. It is useful when the customer impact is severe.",
+          effect: { cost: -4, inventory: 6, profit: -8, delivery: 10, satisfaction: 8 },
+          impactScore: 8
+        },
+        {
+          id: "cost",
+          title: "Freeze discretionary spending",
+          description: "Cut non-essential spending and delay low-priority projects for 60 days.",
+          why: "This protects cash, but it can weaken growth and morale if used too aggressively.",
+          effect: { cost: 8, inventory: -2, profit: 7, delivery: -3, satisfaction: -4 },
+          impactScore: 4
+        },
+        {
+          id: "buffer",
+          title: "Build a temporary safety stock buffer",
+          description: "Increase stock on the highest-risk SKUs while supply is still available.",
+          why: "A buffer shields you from short-term disruption, though it ties up working capital.",
+          effect: { cost: -5, inventory: 10, profit: -6, delivery: 7, satisfaction: 5 },
+          impactScore: 7
+        },
+        {
+          id: "reallocate",
+          title: "Reallocate production to faster-moving lines",
+          description: "Shift capacity toward products that keep revenue flowing.",
+          why: "This is a smart move if you need to protect cash generation quickly.",
+          effect: { cost: 3, inventory: 2, profit: 6, delivery: 5, satisfaction: 4 },
+          impactScore: 6
+        },
+        {
+          id: "communicate",
+          title: "Open a customer communication plan",
+          description: "Send proactive updates to important customers and set honest expectations.",
+          why: "Trust is easier to protect than repair. Clear communication lowers panic.",
+          effect: { cost: -2, inventory: 0, profit: 1, delivery: 2, satisfaction: 9 },
+          impactScore: 8
+        },
+        {
+          id: "dual",
+          title: "Launch a backup supplier search",
+          description: "Start qualifying alternate suppliers immediately to reduce concentration risk.",
+          why: "A backup supplier adds resilience, but the process takes effort and time.",
+          effect: { cost: -3, inventory: 4, profit: 2, delivery: 4, satisfaction: 3 },
+          impactScore: 6
+        }
+      ];
+
+      const negotiationRounds = [
+        {
+          prompt: "A supplier asks for a 9% price increase to keep shipments flowing.",
+          options: [
+            { label: "Accept the increase and protect service", effect: { trust: 5, price: -3, leadTime: 6 }, note: "You preserve continuity, but margin takes a hit." },
+            { label: "Push for a lower rate and accept a delay", effect: { trust: -2, price: 7, leadTime: -4 }, note: "You protect cash, but the supplier feels pressured." }
+          ]
+        },
+        {
+          prompt: "The supplier wants a longer contract term before committing to extra capacity.",
+          options: [
+            { label: "Offer a longer term for better pricing", effect: { trust: 7, price: 5, leadTime: 4 }, note: "You build confidence and lower the unit cost." },
+            { label: "Decline and ask for shorter-term flexibility", effect: { trust: -3, price: -2, leadTime: 3 }, note: "You stay flexible, but the supplier is less confident." }
+          ]
+        },
+        {
+          prompt: "Your team is worried about a wider delay window and wants to shift volume elsewhere.",
+          options: [
+            { label: "Stay collaborative and ask for a recovery plan", effect: { trust: 8, price: 2, leadTime: 5 }, note: "You signal steadiness and get more support." },
+            { label: "Threaten to move business if they miss the date", effect: { trust: -5, price: 1, leadTime: -2 }, note: "You create tension and lose goodwill." }
+          ]
+        },
+        {
+          prompt: "The supplier offers a partial rebate if you keep volume stable for the next quarter.",
+          options: [
+            { label: "Take the rebate and protect the relationship", effect: { trust: 6, price: 8, leadTime: 3 }, note: "You make the deal more attractive without feeling reckless." },
+            { label: "Reject the rebate and ask for better service terms", effect: { trust: 2, price: 3, leadTime: 6 }, note: "You push for performance, but the reward is less immediate." }
+          ]
+        }
+      ];
+
+      const leadershipQuestions = [
+        {
+          prompt: "A board member wants to pause all premium freight after one expensive week.",
+          options: [
+            { label: "Agree and cut all premium lanes immediately", score: 12, note: "Fast cuts protect cash, but they can hurt service." },
+            { label: "Keep only the highest-value lanes protected", score: 20, note: "This balances customer experience and margin." }
+          ]
+        },
+        {
+          prompt: "Your team is split between protecting margin and investing in resilience.",
+          options: [
+            { label: "Choose margin and delay the resilience spend", score: 12, note: "Short-term discipline can leave you exposed later." },
+            { label: "Fund resilience in a phased way", score: 21, note: "This is the better long-view move." }
+          ]
+        },
+        {
+          prompt: "A supplier fails on a critical shipment and the room wants blame.",
+          options: [
+            { label: "Assign blame publicly and escalate the conflict", score: 10, note: "This damages the relationship and slows recovery." },
+            { label: "Separate the issue from the person and solve fast", score: 22, note: "This protects trust and creates momentum." }
+          ]
+        },
+        {
+          prompt: "Customers are asking for updates, but your team is overloaded.",
+          options: [
+            { label: "Say nothing until the plan is perfect", score: 9, note: "Silence creates fear and confusion." },
+            { label: "Issue clear updates and honest timelines", score: 23, note: "This keeps customers calm and informed." }
+          ]
+        },
+        {
+          prompt: "You have one small budget reserve left and a growing risk list.",
+          options: [
+            { label: "Spend it on a visible quick win", score: 13, note: "Quick wins feel good, but may not solve core risk." },
+            { label: "Use it where it reduces the biggest future risk", score: 24, note: "Strong leaders focus on the highest leverage move." }
+          ]
+        }
+      ];
+
+      const aiInvestments = [
+        {
+          id: "forecast",
+          title: "Demand Forecasting",
+          description: "Predict demand shifts earlier so you buy the right volume at the right time.",
+          impact: "Expected impact: fewer stockouts and far less panic buying.",
+          score: 9
+        },
+        {
+          id: "inventory",
+          title: "Inventory Optimization",
+          description: "Balance stock levels across regions without tying up too much cash.",
+          impact: "Expected impact: better inventory health and less waste.",
+          score: 8
+        },
+        {
+          id: "risk",
+          title: "Supplier Risk Monitoring",
+          description: "Surface supplier instability before it becomes a crisis.",
+          impact: "Expected impact: earlier warnings, fewer surprises, better recovery time.",
+          score: 9
+        },
+        {
+          id: "vision",
+          title: "Warehouse Vision",
+          description: "Use visibility tools to see where stock is, where it is stuck, and where it is moving.",
+          impact: "Expected impact: faster decisions and fewer missed shipments.",
+          score: 7
+        },
+        {
+          id: "procurement",
+          title: "Procurement Copilot",
+          description: "Support sourcing decisions with better scenario planning and pricing signals.",
+          impact: "Expected impact: stronger supplier conversations and less overspend.",
+          score: 8
+        }
+      ];
+
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function createSimulation() {
+        const crisis = pick(crisisTypes);
+        const company = {
+          name: `${pick(adjectives)} ${pick(nouns)} ${pick(industries)}`,
+          industry: pick(industries),
+          revenue: `$${(randomInt(180, 900) * 1000000).toLocaleString()}`,
+          factories: randomInt(2, 6),
+          warehouses: randomInt(2, 5),
+          suppliers: randomInt(8, 16),
+          inventoryDays: randomInt(10, 32),
+          leadTime: randomInt(6, 18),
+          countries: randomInt(3, 8)
+        };
+        const metrics = {
+          cost: randomInt(55, 74),
+          inventory: randomInt(48, 70),
+          profit: randomInt(50, 72),
+          delivery: randomInt(46, 69),
+          satisfaction: randomInt(50, 74)
+        };
+        return { company, crisis, metrics };
+      }
+
+      function MetricBar({ label, value, color }) {
+        return (
+          <div className="metric-card">
+            <div className="metric-head">
+              <span>{label}</span>
+              <strong>{value}%</strong>
+            </div>
+            <div className="bar-track">
+              <div className="bar-fill" style={{ width: `${value}%`, background: color }}></div>
+            </div>
+          </div>
+        );
+      }
+
+      function Card({ title, children }) {
+        return (
+          <div className="card">
+            <h3>{title}</h3>
+            {children}
+          </div>
+        );
+      }
+
+      function App() {
+        const [step, setStep] = useState("welcome");
+        const [game, setGame] = useState(null);
+        const [selectedActions, setSelectedActions] = useState([]);
+        const [warMetrics, setWarMetrics] = useState(null);
+        const [negotiationRound, setNegotiationRound] = useState(0);
+        const [negotiationState, setNegotiationState] = useState({ trust: 54, price: 56, leadTime: 55 });
+        const [leadershipIndex, setLeadershipIndex] = useState(0);
+        const [leadershipScore, setLeadershipScore] = useState(0);
+        const [aiSelection, setAiSelection] = useState([]);
+        const [report, setReport] = useState(null);
+
+        const startSimulation = () => {
+          const fresh = createSimulation();
+          setGame(fresh);
+          setSelectedActions([]);
+          setWarMetrics(null);
+          setNegotiationRound(0);
+          setNegotiationState({ trust: 54, price: 56, leadTime: 55 });
+          setLeadershipIndex(0);
+          setLeadershipScore(0);
+          setAiSelection([]);
+          setReport(null);
+          setStep("warRoom");
+        };
+
+        const toggleAction = (id) => {
+          setSelectedActions((prev) => {
+            if (prev.includes(id)) {
+              return prev.filter((item) => item !== id);
+            }
+            if (prev.length >= 3) {
+              return prev;
+            }
+            return [...prev, id];
+          });
+        };
+
+        const continueWarRoom = () => {
+          if (selectedActions.length < 3) return;
+          const total = selectedActions.reduce(
+            (sum, id) => {
+              const action = warActions.find((item) => item.id === id);
+              return {
+                cost: sum.cost + action.effect.cost,
+                inventory: sum.inventory + action.effect.inventory,
+                profit: sum.profit + action.effect.profit,
+                delivery: sum.delivery + action.effect.delivery,
+                satisfaction: sum.satisfaction + action.effect.satisfaction
+              };
+            },
+            { cost: 0, inventory: 0, profit: 0, delivery: 0, satisfaction: 0 }
+          );
+          setWarMetrics({
+            cost: clamp(game.metrics.cost + total.cost),
+            inventory: clamp(game.metrics.inventory + total.inventory),
+            profit: clamp(game.metrics.profit + total.profit),
+            delivery: clamp(game.metrics.delivery + total.delivery),
+            satisfaction: clamp(game.metrics.satisfaction + total.satisfaction)
+          });
+          setStep("negotiation");
+        };
+
+        const chooseNegotiation = (option) => {
+          const nextState = {
+            trust: clamp(negotiationState.trust + option.effect.trust),
+            price: clamp(negotiationState.price + option.effect.price),
+            leadTime: clamp(negotiationState.leadTime + option.effect.leadTime)
+          };
+          setNegotiationState(nextState);
+          if (negotiationRound < negotiationRounds.length - 1) {
+            setNegotiationRound((prev) => prev + 1);
+          } else {
+            setStep("boardroom");
+          }
+        };
+
+        const chooseLeadership = (option) => {
+          setLeadershipScore((prev) => prev + option.score);
+          if (leadershipIndex < leadershipQuestions.length - 1) {
+            setLeadershipIndex((prev) => prev + 1);
+          } else {
+            setStep("ai");
+          }
+        };
+
+        const toggleAi = (id) => {
+          setAiSelection((prev) => {
+            if (prev.includes(id)) {
+              return prev.filter((item) => item !== id);
+            }
+            if (prev.length >= 2) {
+              return prev;
+            }
+            return [...prev, id];
+          });
+        };
+
+        const continueAi = () => {
+          if (aiSelection.length < 2) return;
+          const aiScore = aiSelection.reduce((sum, id) => sum + (aiInvestments.find((item) => item.id === id)?.score || 0), 0);
+          const resilience = clamp(Math.round((warMetrics.inventory + warMetrics.delivery + warMetrics.satisfaction + negotiationState.leadTime + aiScore * 2) / 5));
+          const costControl = clamp(Math.round((warMetrics.cost + negotiationState.price + aiScore) / 3));
+          const riskManagement = clamp(Math.round((warMetrics.inventory + negotiationState.trust + warMetrics.delivery + aiScore) / 4));
+          const customerSatisfaction = clamp(Math.round((warMetrics.satisfaction + negotiationState.trust + leadershipScore / 2 + aiScore) / 4));
+          const overallScore = clamp(Math.round(resilience * 0.3 + costControl * 0.25 + riskManagement * 0.2 + customerSatisfaction * 0.25));
+
+          const selectedActionObjects = warActions.filter((item) => selectedActions.includes(item.id));
+          const bestAction = selectedActionObjects.reduce((best, action) => (action.impactScore > best.impactScore ? action : best), selectedActionObjects[0] || warActions[0]);
+          const biggestMistake = warMetrics.satisfaction < 60
+            ? "You let customer sentiment fall too far while chasing cost control."
+            : warMetrics.inventory < 58
+              ? "You over-relied on short-term buffers and left inventory too fragile."
+              : "You made a few good moves, but one decision favored speed over steadiness.";
+
+          const feedback = overallScore >= 82
+            ? "You led like a calm operator. Your decisions balanced urgency with trust and protected the business under pressure."
+            : overallScore >= 64
+              ? "You steadied the situation well. The company kept moving, but a few choices left more risk than necessary."
+              : "The crisis exposed weak points, but you bought the company time. The next cycle should emphasize resilience over speed.";
+
+          const expertRecommendation = game.crisis.type === "factory fire"
+            ? "Prioritize backup capacity and transparent customer updates. Recovery is easier when your customers feel informed."
+            : game.crisis.type === "supplier bankruptcy"
+              ? "Double down on alternate suppliers and make your risk policy visible to the entire leadership team."
+              : game.crisis.type === "port strike"
+                ? "Create contingency lanes quickly and protect premium shipments so you do not lose strategic accounts."
+                : game.crisis.type === "cyberattack"
+                  ? "Rebuild visibility and decision confidence first. A crisis becomes more manageable when the team can see the truth."
+                  : game.crisis.type === "flood"
+                    ? "Spread inventory and strengthen warehouse redundancy before the next shock hits."
+                    : game.crisis.type === "raw material shortage"
+                      ? "Use procurement copilots and long-term supplier conversations to reduce rate spikes."
+                      : game.crisis.type === "political conflict"
+                        ? "Create route diversification early and protect the most important lanes from disruption."
+                        : "Keep customers informed and keep your suppliers close. Delay is easier to manage when trust is high.";
+
+          const lessons = [
+            "Every crisis gets worse when teams wait for perfect data.",
+            "Communication is a delivery tool, not just a branding task.",
+            "Resilience compounds when you invest before the next disruption arrives."
+          ];
+
+          setReport({
+            overallScore,
+            resilience,
+            costControl,
+            riskManagement,
+            customerSatisfaction,
+            leadershipScore,
+            negotiationScore: Math.round((negotiationState.trust + negotiationState.price + negotiationState.leadTime) / 3),
+            feedback,
+            biggestMistake,
+            bestDecision: bestAction?.title || "A balanced response",
+            expertRecommendation,
+            lessons,
+            aiSelection,
+            crisis: game.crisis
+          });
+          setStep("final");
+        };
+
+        const selectedActionObjects = warActions.filter((item) => selectedActions.includes(item.id));
+        const negotiationScore = Math.round((negotiationState.trust + negotiationState.price + negotiationState.leadTime) / 3);
+
+        return (
+          <div className="app">
+            <div className="hero">
+              <div className="eyebrow">Operation Lifeline</div>
+              <h1>Supply Chain Crisis Lab</h1>
+              <p className="subtitle">
+                You are the decision-maker in a fast-moving supply chain shock. The goal is not perfection. The goal is calm, smart action under pressure.
+              </p>
+              {step === "welcome" ? (
+                <div className="actions-row">
+                  <button className="btn btn-primary" onClick={startSimulation}>Start Simulation</button>
+                </div>
+              ) : (
+                <div className="actions-row">
+                  <button className="btn btn-secondary" onClick={startSimulation}>Replay</button>
+                </div>
+              )}
+            </div>
+
+            {step === "welcome" && (
+              <div className="step-card">
+                <h3>How to play</h3>
+                <p>
+                  Each run creates a fresh company and a new crisis. You will choose three war-room actions, negotiate through four supplier rounds, answer five leadership prompts, and invest in two AI tools. Every decision changes the numbers, and the final score reflects how well you protected service, margin, trust, and resilience.
+                </p>
+              </div>
+            )}
+
+            {step === "warRoom" && game && (
+              <>
+                <div className="cards-grid">
+                  <Card title="Company snapshot">
+                    <div className="pill"><strong>{game.company.name}</strong></div>
+                    <p><strong>Industry:</strong> {game.company.industry}</p>
+                    <p><strong>Revenue:</strong> {game.company.revenue}</p>
+                    <p><strong>Factories:</strong> {game.company.factories} • Warehouses: {game.company.warehouses}</p>
+                    <p><strong>Suppliers:</strong> {game.company.suppliers} • Countries: {game.company.countries}</p>
+                  </Card>
+                  <Card title="Active crisis">
+                    <div className="pill"><strong>{game.crisis.type}</strong></div>
+                    <p>{game.crisis.headline}</p>
+                    <p className="subtle">{game.crisis.description}</p>
+                    <p className="warning">Why this matters: {game.crisis.why}</p>
+                  </Card>
+                  <Card title="Starting health">
+                    <p>These are your current operating signals before your choices.</p>
+                    <div className="stack">
+                      <MetricBar label="Cost Control" value={game.metrics.cost} color="var(--accent)" />
+                      <MetricBar label="Inventory" value={game.metrics.inventory} color="var(--good)" />
+                      <MetricBar label="Profit" value={game.metrics.profit} color="var(--warn)" />
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="step-card">
+                  <h3>War Room: Choose three moves</h3>
+                  <p>
+                    You are not just picking actions. You are deciding what your team will protect first: cash, inventory, delivery speed, or customer confidence. Choose three. The best responses usually protect more than one outcome at once.
+                  </p>
+                  <div className="mini-grid">
+                    {warActions.map((action) => {
+                      const isSelected = selectedActions.includes(action.id);
+                      return (
+                        <div key={action.id} className={`choice-card ${isSelected ? "active" : ""}`}>
+                          <button className={`btn btn-choice ${isSelected ? "active" : ""}`} onClick={() => toggleAction(action.id)}>
+                            <strong>{action.title}</strong>
+                            <div className="choice-meta">{action.description}</div>
+                            <div className="choice-meta">Why it matters: {action.why}</div>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="actions-row">
+                    <button className="btn btn-primary" onClick={continueWarRoom}>Simulate the response</button>
+                    <span className="subtle">Selected: {selectedActions.length}/3</span>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {step === "negotiation" && game && (
+              <div className="step-card">
+                <h3>Negotiation: Supplier round {negotiationRound + 1} of 4</h3>
+                <p>
+                  Suppliers respond to calm, fairness, and clarity. Your tone matters almost as much as the number on the page.
+                </p>
+                <div className="card" style={{ marginTop: 16 }}>
+                  <h3>{negotiationRounds[negotiationRound].prompt}</h3>
+                  {negotiationRounds[negotiationRound].options.map((option, index) => (
+                    <button key={index} className="btn btn-choice" onClick={() => chooseNegotiation(option)}>
+                      <strong>{option.label}</strong>
+                      <div className="choice-meta">{option.note}</div>
+                    </button>
+                  ))}
+                </div>
+                <div className="cards-grid" style={{ marginTop: 16 }}>
+                  <Card title="Current negotiation posture">
+                    <MetricBar label="Trust" value={negotiationState.trust} color="var(--accent)" />
+                    <MetricBar label="Price" value={negotiationState.price} color="var(--good)" />
+                    <MetricBar label="Lead Time" value={negotiationState.leadTime} color="var(--warn)" />
+                  </Card>
+                  <Card title="Negotiation score">
+                    <div className="final-score">{negotiationScore}</div>
+                    <p>A strong score means the supplier sees you as credible, fair, and capable of follow-through.</p>
+                  </Card>
+                </div>
+              </div>
+            )}
+
+            {step === "boardroom" && game && (
+              <div className="step-card">
+                <h3>CEO Boardroom: Leadership question {leadershipIndex + 1} of 5</h3>
+                <p>
+                  Leadership is not about being the loudest voice. It is about choosing the move that protects the company when pressure is high and the room is divided.
+                </p>
+                <div className="card" style={{ marginTop: 16 }}>
+                  <h3>{leadershipQuestions[leadershipIndex].prompt}</h3>
+                  {leadershipQuestions[leadershipIndex].options.map((option, index) => (
+                    <button key={index} className="btn btn-choice" onClick={() => chooseLeadership(option)}>
+                      <strong>{option.label}</strong>
+                      <div className="choice-meta">{option.note}</div>
+                    </button>
+                  ))}
+                </div>
+                <div className="card" style={{ marginTop: 16 }}>
+                  <h3>Leadership score</h3>
+                  <div className="final-score">{leadershipScore}</div>
+                  <p>Your score rises when you choose the option that protects service, trust, and long-term resilience.</p>
+                </div>
+              </div>
+            )}
+
+            {step === "ai" && game && (
+              <div className="step-card">
+                <h3>AI Strategy: Choose two investments</h3>
+                <p>
+                  The right AI tools do not replace your judgment. They compress the time between signal and decision so you can act before the problem becomes bigger.
+                </p>
+                <div className="mini-grid">
+                  {aiInvestments.map((item) => {
+                    const selected = aiSelection.includes(item.id);
+                    return (
+                      <div key={item.id} className={`choice-card ${selected ? "active" : ""}`}>
+                        <button className={`btn btn-choice ${selected ? "active" : ""}`} onClick={() => toggleAi(item.id)}>
+                          <strong>{item.title}</strong>
+                          <div className="choice-meta">{item.description}</div>
+                          <div className="choice-meta">{item.impact}</div>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="actions-row">
+                  <button className="btn btn-primary" onClick={continueAi}>See the final dashboard</button>
+                  <span className="subtle">Selected: {aiSelection.length}/2</span>
+                </div>
+              </div>
+            )}
+
+            {step === "final" && report && game && (
+              <div className="step-card">
+                <h3>Final Dashboard</h3>
+                <p>
+                  This is your operating report. It is not a verdict on your talent. It is a map of where your choices helped and where they left pressure behind.
+                </p>
+                <div className="cards-grid" style={{ marginTop: 16 }}>
+                  <div className="summary-card">
+                    <div className="eyebrow">Overall crisis score</div>
+                    <div className="final-score">{report.overallScore}</div>
+                    <p>{report.feedback}</p>
+                  </div>
+                  <div className="summary-card">
+                    <h3>Key outcomes</h3>
+                    <MetricBar label="Leadership" value={report.leadershipScore} color="var(--accent)" />
+                    <MetricBar label="Negotiation" value={report.negotiationScore} color="var(--good)" />
+                    <MetricBar label="Resilience" value={report.resilience} color="var(--warn)" />
+                    <MetricBar label="Cost Control" value={report.costControl} color="var(--accent-2)" />
+                    <MetricBar label="Risk Management" value={report.riskManagement} color="var(--good)" />
+                    <MetricBar label="Customer Satisfaction" value={report.customerSatisfaction} color="var(--danger)" />
+                  </div>
+                </div>
+
+                <div className="cards-grid">
+                  <Card title="Biggest mistake">
+                    <p>{report.biggestMistake}</p>
+                  </Card>
+                  <Card title="Best decision">
+                    <p>{report.bestDecision}</p>
+                  </Card>
+                  <Card title="Expert recommendation">
+                    <p>{report.expertRecommendation}</p>
+                  </Card>
+                </div>
+
+                <div className="summary-card">
+                  <h3>Lessons learned</h3>
+                  <ul>
+                    {report.lessons.map((lesson, index) => <li key={index}>{lesson}</li>)}
+                  </ul>
+                  <div className="tag-row">
+                    <span className="tag">Crisis: {report.crisis.type}</span>
+                    <span className="tag">AI focus: {report.aiSelection.map((id) => aiInvestments.find((item) => item.id === id)?.title).join(", ")}</span>
+                  </div>
+                </div>
+
+                <div className="actions-row">
+                  <button className="btn btn-primary" onClick={startSimulation}>Play again</button>
+                </div>
+              </div>
+            )}
+
+            {warMetrics && step !== "negotiation" && step !== "boardroom" && step !== "ai" && step !== "final" && (
+              <div className="step-card" style={{ marginTop: 16 }}>
+                <h3>War-room outcome</h3>
+                <div className="cards-grid">
+                  <MetricBar label="Cost Control" value={warMetrics.cost} color="var(--accent)" />
+                  <MetricBar label="Inventory" value={warMetrics.inventory} color="var(--good)" />
+                  <MetricBar label="Profit" value={warMetrics.profit} color="var(--warn)" />
+                  <MetricBar label="Delivery Speed" value={warMetrics.delivery} color="var(--accent-2)" />
+                  <MetricBar label="Customer Satisfaction" value={warMetrics.satisfaction} color="var(--danger)" />
+                </div>
+                <p className="subtle">These bars reflect how your three choices changed support for service, margin, and resilience.</p>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>

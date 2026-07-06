@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Face Puzzle Game</title>
+<style>
+body{font-family:Arial,sans-serif;background:#111;color:#fff;text-align:center;margin:0;padding:20px}
+#board{margin:20px auto;display:grid;width:min(90vw,500px);height:min(90vw,500px);border:2px solid #fff}
+.tile{border:1px solid #333;background-size:100% 100%;cursor:pointer}
+button{padding:10px 16px;margin:5px}
+</style>
+</head>
+<body>
+<h2>Nature Puzzle Game</h2>
+<p>Upload image already embedded separately if desired. Choose difficulty and play.</p>
+<select id="size">
+<option value="3">3x3</option>
+<option value="4">4x4</option>
+<option value="5">5x5</option>
+</select>
+<button onclick="start()">Start Puzzle</button>
+<div id="info"></div>
+<div id="board"></div>
+<script>
+const img='https://picsum.photos/600';
+let n=3,tiles=[],moves=0,startTime;
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
+function start(){
+n=+size.value;moves=0;startTime=Date.now();
+board.style.gridTemplateColumns=`repeat(${n},1fr)`;
+board.innerHTML='';
+tiles=[...Array(n*n).keys()];
+shuffle(tiles);
+tiles.forEach((v,i)=>{
+let d=document.createElement('div');
+d.className='tile';
+d.draggable=true;
+d.dataset.pos=i;
+d.dataset.val=v;
+let x=(v%n)*100/(n-1||1);
+let y=Math.floor(v/n)*100/(n-1||1);
+d.style.backgroundImage=`url(${img})`;
+d.style.backgroundSize=`${n*100}% ${n*100}%`;
+d.style.backgroundPosition=`${(v%n)*100/(n-1||1)}% ${Math.floor(v/n)*100/(n-1||1)}%`;
+d.addEventListener('dragstart',e=>window.drag=d);
+d.addEventListener('dragover',e=>e.preventDefault());
+d.addEventListener('drop',e=>{
+let a=drag,b=d;
+let av=a.dataset.val,bv=b.dataset.val;
+a.dataset.val=bv;b.dataset.val=av;
+updateTile(a);updateTile(b);moves++;check();
+});
+board.appendChild(d);updateTile(d);
+});
+tick();
+}
+function updateTile(d){
+let v=+d.dataset.val;
+d.style.backgroundPosition=`${(v%n)*100/(n-1||1)}% ${Math.floor(v/n)*100/(n-1||1)}%`;
+}
+function tick(){
+if(startTime) info.textContent='Moves: '+moves+' | Time: '+((Date.now()-startTime)/1000).toFixed(1)+'s';
+requestAnimationFrame(tick);
+}
+function check(){
+let ok=[...board.children].every((d,i)=>+d.dataset.val===i);
+if(ok){alert('Puzzle Solved! Moves: '+moves);startTime=null;}
+}
+</script>
+</body>
+</html>
