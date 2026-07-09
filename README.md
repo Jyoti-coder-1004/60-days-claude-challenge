@@ -7,8 +7,8 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 ---
 
 ## 🧑‍💻 About Me & My AI Profile
-* **My AI Title:** [यहाँ Claude द्वारा दिया गया अपना AI Title डालें, जैसे: Autonomous Builder / Next-Gen Prompt Engineer]
-* **My Vibe:** [Claude द्वारा दी गई अपनी short cinematic character description यहाँ लिखें]
+* **My AI Title:** Autonomous Systems Builder / Interactive Experience Engineer
+* **My Vibe:** A logic-driven full-stack craftsman fusing architectural systems design with ultra-premium glassmorphic frontends to turn complex operational workflows into tactile simulations.
 * **My Goal:** To master context-rich prompting, build useful AI-driven tools, and develop a rock-solid workflow using Claude Desktop & Projects.
 
 ---
@@ -17,7 +17,17 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 
 | Day | Task Title | Status | Workspace / Preview | Link / Commit |
 |-----|------------|--------|---------------------|---------------|
-| Day 28 | *The Next Build Awaits...* | ⏳ Coming Soon | ![Coming Soon Preview](https://img.shields.io/badge/Status-Upcoming-orange) | [Day 28 Notes](./Day28/) |
+| Day 38 | *The Next Build Awaits...* | ⏳ Coming Soon | ![Coming Soon Preview](https://img.shields.io/badge/Status-Upcoming-orange) | [Day 38 Notes](./Day38/) |
+| Day 37 | Build Task Compass (Tech Company Edition) | ✅ Completed | ![Task Compass Preview](./Day37/screenshots/task_compass.png) | [Day 37 Notes](./Day37/day37.md) |
+| Day 36 | System Integration & Refactoring | ✅ Completed | ![System Preview](./Day36/refactor.png) | [Day 36 Notes](./Day36/day36.md) |
+| Day 35 | Operational Matrix Planner | ✅ Completed | ![Matrix Preview](./Day35/matrix_ui.png) | [Day 35 Notes](./Day35/day35.md) |
+| Day 34 | Cross-Functional Alignment Engine | ✅ Completed | ![Alignment Preview](./Day34/alignment.png) | [Day 34 Notes](./Day34/day34.md) |
+| Day 33 | Dynamic Flow Logic Simulator | ✅ Completed | ![Logic Preview](./Day33/logic_ui.png) | [Day 33 Notes](./Day33/day33.md) |
+| Day 32 | Team Velocity Analytics Dashboard | ✅ Completed | ![Velocity Preview](./Day32/velocity.png) | [Day 32 Notes](./Day32/day32.md) |
+| Day 31 | Resource Optimization Tracker | ✅ Completed | ![Resource Preview](./Day31/resource.png) | [Day 31 Notes](./Day31/day31.md) |
+| Day 30 | Organizational Topology Modeler | ✅ Completed | ![Topology Preview](./Day30/topology.png) | [Day 30 Notes](./Day30/day30.md) |
+| Day 29 | Enterprise Architecture Engine | ✅ Completed | ![Architecture Preview](./Day29/architecture.png) | [Day 29 Notes](./Day29/day29.md) |
+| Day 28 | Workflow Dependency Mapper | ✅ Completed | ![Dependency Preview](./Day28/dependency.png) | [Day 28 Notes](./Day28/day28.md) |
 | Day 27 | Build a Prior Authorization Story Simulator | ✅ Completed | ![PA Simulator Preview](./Day27/screenshots/simulator_preview.png) | [Day 27 Notes](./Day27/day27.md) |
 | Day 26 | Build a Prior Authorization Workflow Simulator | ✅ Completed | ![PA Simulator Preview](./Day26/screenshots/simulation_ui.png) | [Day 26 Notes](./Day26/day26.md) |
 | Day 25 | Build an AI Shark Tank Simulator | ✅ Completed | ![Shark Tank Preview](./Day25/screenshots/simulation_ui.png) | [Day 25 Notes](./Day25/day25.md) |
@@ -45,6 +55,18 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 | Day 3 | Role-Based Prompting | ✅ Completed | ![Day 3 Persona](./Day3/persona-screenshot.png) | [Day 3 Notes](./Day3/day3.md) |
 | Day 2 | What Is Prompt Engineering? | ✅ Completed | ![Day 2 Prompt](./Day2-prompt.png) | [Day 2 Notes](./Day2.md) |
 | Day 1 | Claude Setup & AI Personality Profile | ✅ Completed | ![Day 1 Setup](./Day1-setup.png) | [Day 1 Notes](./Day1.md) |
+
+---
+
+## 🌟 Day 37 Spotlight: Task Compass (Tech Company Edition)
+
+Today, I engineered an advanced single-page interactive management simulation designed to dissect operational workflows inside high-growth tech ecosystems. Moving beyond standard definition tests, the simulator gamifies deep structural dynamics through native client-side pipelines.
+
+### Core Architecture Deliverables:
+* **Granular Owner Isolation Matrix:** Programmed an interactive drag-and-drop layer mapping distinct roles (Frontend, QA, Backend, PM) against edge-case tickets to demonstrate primary accountability versus technical collaboration.
+* **Asynchronous Routing Pipelines:** Built dynamic layout fields that trace tasks chronologically across multi-step organizational lanes, complete with physics-inspired snap animations and step validation logic.
+* **Cross-Functional Crisis Engine:** Configured multi-department scenario matrices mapping global infrastructure events (outages, systemic customer retention drops) to teach collaborative escalation routes.
+* **Pure-CSS Radar Analytics Canvas:** Programmed an end-of-game performance dashboard rendered with native CSS conic gradients and clip paths to evaluate organizational insights without external rendering frameworks.
 
 ---
 
@@ -78,80 +100,3 @@ Today, I engineered a complete, production-quality **AI Shark Tank Simulator** i
 * **Multi-Persona Behavioral Matrix:** Programmed four distinct simulated judges (a TAM-focused VC, execution-oriented Founder, utility-driven Customer, and margin-obsessed Angel Investor) that query the user with dynamic follow-ups based strictly on input data.
 * **Granular Evaluative Scorecard:** Built an interactive system calculating performance out of 100 points across critical dimensions (Market Potential, Innovation, Business Model, Execution, and Investment Worthiness).
 * **Gamified Interface Expansion:** Integrated complete client-side bonus elements including dynamic validation outcomes (Invest, Reject, Acquire), success confetti states, local storage leaderboard persistence, and inline PDF pitch report compilers.
-
----
-
-## 🌟 Day 24 Spotlight: Startup Business Strategy Report
-
-Today, I transitioned our validated MVP blueprints into an investor-ready operational architecture by formulating a comprehensive long-term startup strategy report. The entire framework shifts focus from soft feature exploration to rigorous, defensible business viability.
-
-### Core Architecture Deliverables:
-* **Structured Business Model Canvas:** Organized key infrastructure, financial cost segments, target distributions, and pricing dynamics into a high-level operational canvas.
-* **Go-To-Market & First 100 Users Plan:** Created an intentional 60-day unscalable user acquisition timeline utilizing low-friction community integration hooks and structured direct outreach pipelines.
-* **Defensibility & Reverse SWOT Shield:** Evaluated long-term platform protection strategies focusing on workflow integration network effects, alongside transforming organizational agility into an unfair competitive strength.
-
----
-
-## 🌟 Day 23 Spotlight: Customer & MVP Blueprint
-
-Today, I teamed up with Claude as a Startup Product Manager and Customer Research Expert to distill complex user feedback into a lean, actionable Minimum Viable Product (MVP) model. The core objective was stripping away distractions and focus strictly on rapid validation.
-
-### Core Architecture Deliverables:
-* **Ideal Customer Profile (ICP) Mapping:** Synthesized explicit buyer triggers, demographic traits, and behavioral patterns into a structured target profile.
-* **MoSCoW Feature Stratification:** Formulated a rigid prioritization hierarchy strictly separating primary core mechanics ("Must-Haves") from secondary distractions ("Won't-Haves") to defeat feature creep.
-* **Risk & Action Execution Sheets:** Created an operational 30-day tactical pipeline detailing exactly what to deploy, trackable onboarding success criteria, and explicit risk mitigation strategies.
-
----
-
-## 🌟 Day 22 Spotlight: VC-Style Startup Validation Report
-
-Today, I leveraged advanced AI frameworks to act as a VC Analyst, Market Research Expert, and Startup Advisor to systematically stress-test a startup idea. Instead of relying on gut feelings, I formulated a structured, data-driven framework to dissect risks and outline accurate execution metrics.
-
-### Core Architecture Deliverables:
-* **Granular Market Decomposition:** Calculated objective parameters for Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Serviceable Obtainable Market (SOM) to pinpoint an immediate beachhead focus.
-* **Psychometric Archetype Analysis:** Constructed detailed Ideal Customer Profiles (ICPs) along with behavioral buyer personas, highlighting explicit purchase triggers and core adoption bottlenecks.
-* **De-biased Execution Guardrails:** Formulated critical, objective Go / No-Go indicators combined with an active 30-day user research and feedback sprint to rule out confirmation bias before writing code.
-
----
-
-## 🌟 Day 21 Spotlight: Digital Privacy Intelligence Dashboard
-
-Today, I engineered a high-end cybersecurity-themed **Digital Privacy Intelligence Dashboard**. The core goal was to process an application-layer digital footprint (15 core everyday apps) and calculate ecosystem vulnerabilities, exposure rankings, and dynamic behavioral profiling traits.
-
-### Core Architecture Deliverables:
-* **Ecosystem Concentration Engine:** Designed rules to programmatically tie consumer services back to massive parent entities (Alphabet, Meta, ByteDance) to demonstrate the hidden consolidation of personal telemetry data.
-* **Rigid Data Stratification:** Configured the underlying AI engine to handle known user-reported items strictly as immutable **Facts**, while dynamically classifying abstract behavioral patterns, travel traits, and spending habits as clearly denoted **Estimates**.
-* **Interactive Threat Mitigation Simulator:** Created an integrated UI wrapper that lets users simulate revoking permissions or deleting accounts, triggering real-time recalculations of their baseline Digital Footprint and Privacy Scores.
-
----
-
-## 🌟 Day 20 Spotlight: AI Face Puzzle Game
-
-Today, I engineered an interactive AI Face Puzzle Game from scratch using vanilla HTML5, CSS3, and JavaScript. The application lets players snap a real-time photo of themselves and turns it into a dynamic sliding/swapping puzzle grid.
-
-### Core Architecture Deliverables:
-* **Webcam Stream Operations:** Configured access to local video components utilizing the modern `getUserMedia` API, including dynamic inline CSS mirroring to emulate a real reflection.
-* **Mathematical Solvability Filter:** Integrated a permutation inversion algorithm verifying the tile placement matrix behind the scenes. This ensures that every generated puzzle is mathematically solvable before gameplay starts.
-* **Hybrid Gesture Controls:** Implemented unified desktop and mobile touch wrappers mapping out pointer, click-and-drag, and touch events natively to guarantee sleek, cross-browser responsiveness.
-
----
-
-## 🌟 Day 19 Spotlight: Football Intelligence Hub
-
-Today, I leveraged Claude's analytical, educational, and profiling capabilities to construct a fully structured, multi-stage **Football Intelligence Hub** mapped against historical football workbook datasets.
-
-### Core Architecture Deliverables:
-* **Context-Aware Calibration:** Programmed an initial calibration stage that safely gauges user knowledge base levels to seamlessly adapt terminology and quiz complexities.
-* **Predictive Sports Analytics Engine:** Directed Claude to balance confidence scores with data-backed conflicting risks to generate World Cup tournament forecasting vectors.
-* **Interactive Evaluation Workflows:** Chained analytical reporting, an adaptive gaming framework, and psychometric assessments into a clean, unified profile matrix.
-
----
-
-## 🌟 Day 18 Spotlight: Brain Dump Action Planner Custom Skill
-
-Today, I built a custom Claude Skill to solve information clutter. The `brain-dump-action-planner` takes unstructured thoughts, meeting notes, transcripts, or messy voice memos and instantly processes them into a structured project management dashboard without inventing information.
-
-### Core Architecture Deliverables:
-* **Reusable Workflow Memory:** Configured a native skill container inside Claude so complex UI frameworks and layout rules persist cross-session without repeating prompts.
-* **Notion/Linear Style Engine:** Generates interactive HTML dashboards featuring automated status badges, distinct key takeaways, and cleanly structured tables.
-* **Strict Fact Grounding:** Programmed explicit parameters that fall back to `"Not specified"` rather than hallucinating details when variables or dependencies are missing.
