@@ -17,7 +17,7 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 
 | Day | Task Title | Status | Workspace / Preview | Link / Commit |
 |-----|------------|--------|---------------------|---------------|
-| Day 38 | *The Next Build Awaits...* | ⏳ Coming Soon | ![Coming Soon Preview](https://img.shields.io/badge/Status-Upcoming-orange) | [Day 38 Notes](./Day38/) |
+| Day 38 | Build Typing Speed Studio | ✅ Completed | ![Typing Studio Preview](./Day38/typing_studio.png) | [Day 38 Notes](./Day38/Day38.md) |
 | Day 37 | Build Task Compass (Tech Company Edition) | ✅ Completed | ![Task Compass Preview](./Day37/screenshots/task_compass.png) | [Day 37 Notes](./Day37/day37.md) |
 | Day 36 | System Integration & Refactoring | ✅ Completed | ![System Preview](./Day36/refactor.png) | [Day 36 Notes](./Day36/day36.md) |
 | Day 35 | Operational Matrix Planner | ✅ Completed | ![Matrix Preview](./Day35/matrix_ui.png) | [Day 35 Notes](./Day35/day35.md) |
@@ -58,6 +58,18 @@ Here, I'll be tracking my daily progress, storing code snippets, HTML files, scr
 
 ---
 
+## 🌟 Day 38 Spotlight: Typing Speed Studio
+
+Today, I engineered a premium, high-performance commercial-grade typing platform entirely from scratch using vanilla web technologies. Inspired by modern minimalist typing ecosystems, the app eliminates framework overhead to achieve ultra-responsive typing inputs and deep post-session metrics.
+
+### Core Architecture Deliverables:
+* **Dynamic Caret Tracking Engine:** Utilizes real-time DOM bounding coordinates to seamlessly slide a custom caret across variable-width fonts without relying on heavy HTML canvas layers.
+* **Zero-Dependency Analytics Chart:** Features a fully native, client-side graphing area that renders WPM and consistency changes over the course of the test using semantic HTML and CSS transitions.
+* **Layout Error Heatmap:** Maps mistyped characters out structurally to isolate muscle memory flaws and specific letter pairing bottlenecks.
+* **Localized Session Engine:** Commits and loads test histories directly into browser `localStorage` to keep progress curves intact without remote database sync delays.
+
+---
+
 ## 🌟 Day 37 Spotlight: Task Compass (Tech Company Edition)
 
 Today, I engineered an advanced single-page interactive management simulation designed to dissect operational workflows inside high-growth tech ecosystems. Moving beyond standard definition tests, the simulator gamifies deep structural dynamics through native client-side pipelines.
@@ -67,36 +79,3 @@ Today, I engineered an advanced single-page interactive management simulation de
 * **Asynchronous Routing Pipelines:** Built dynamic layout fields that trace tasks chronologically across multi-step organizational lanes, complete with physics-inspired snap animations and step validation logic.
 * **Cross-Functional Crisis Engine:** Configured multi-department scenario matrices mapping global infrastructure events (outages, systemic customer retention drops) to teach collaborative escalation routes.
 * **Pure-CSS Radar Analytics Canvas:** Programmed an end-of-game performance dashboard rendered with native CSS conic gradients and clip paths to evaluate organizational insights without external rendering frameworks.
-
----
-
-## 🌟 Day 27 Spotlight: Prior Authorization Story Simulator
-
-Today, I engineered an interactive, context-driven **Prior Authorization Story Simulator** built alongside Claude to model complex healthcare utilization management workflows.
-
-### Core Architecture Deliverables:
-* **Context-Aware Dynamic Branching:** Leveraged LLM state-tracking to build deep narrative paths based entirely on user clinical decisions (e.g., opting for peer-to-peer reviews vs. alternative treatments).
-* **Dual-Metric Engine:** Programmed systems to evaluate and update real-time progress across key metrics tracking both Patient Care Quality and Administrative Friction.
-* **Strict Clinical Alignment:** Modeled real-world medical necessity checks, including step-therapy rules (fail-first protocols) for specialty biologic approvals.
-
----
-
-## 🌟 Day 26 Spotlight: Prior Authorization Workflow Simulator
-
-Today, I engineered an interactive **Prior Authorization Workflow Simulator** using vanilla HTML, CSS, and JavaScript. The application utilizes a gamified drag-and-drop architectural model to map out real-world healthcare utilization management and administration processes.
-
-### Core Architecture Deliverables:
-* **Tri-Lane Operational Grid:** Configured distinct, independent lanes tracking the asynchronous processing states for Patients, Providers, and Payers.
-* **Clinical Document Collection Logic:** Implemented multi-step scenario checking that requires assembling charts, medical necessity statements, and diagnostic images before cross-lane submissions.
-* **Admin Review Engine:** Programmed real-time decision evaluation states handling structural healthcare outcomes (Approved, Pended, Denied, and Peer-to-Peer administrative appeals) alongside live clock and efficiency tracking metrics.
-
----
-
-## 🌟 Day 25 Spotlight: AI Shark Tank Simulator
-
-Today, I engineered a complete, production-quality **AI Shark Tank Simulator** inside a single, self-contained HTML/JS web application. The platform challenges users to submit their startup concepts and survive an active cross-examination round from four unique investor archetypes.
-
-### Core Architecture Deliverables:
-* **Multi-Persona Behavioral Matrix:** Programmed four distinct simulated judges (a TAM-focused VC, execution-oriented Founder, utility-driven Customer, and margin-obsessed Angel Investor) that query the user with dynamic follow-ups based strictly on input data.
-* **Granular Evaluative Scorecard:** Built an interactive system calculating performance out of 100 points across critical dimensions (Market Potential, Innovation, Business Model, Execution, and Investment Worthiness).
-* **Gamified Interface Expansion:** Integrated complete client-side bonus elements including dynamic validation outcomes (Invest, Reject, Acquire), success confetti states, local storage leaderboard persistence, and inline PDF pitch report compilers.
